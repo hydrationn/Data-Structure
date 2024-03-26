@@ -30,17 +30,23 @@ public class ArrayAssignment {
 
                 System.out.println();
 
-                System.out.print("OUTPUT: ");
-                for(int i = length-1; i >= 0; i--) {
+                int temp;
+                int evenNum = 0;
+
+                for(int i=0; i<arr.length; i++) {
                     if(arr[i] % 2 == 0) {
-                        System.out.print(arr[i] + " ");
+                        temp = arr[i];
+                        arr[i] = arr[evenNum];
+                        arr[evenNum] = temp;
+                        evenNum++;
                     }
                 }
-                for(int i = length-1; i >= 0; i--) {
-                    if(arr[i] % 2 != 0) {
-                        System.out.print(arr[i] + " ");
-                    }
+
+                System.out.print("OUTPUT: ");
+                for(int i = 0; i < length; i++) {
+                    System.out.print(arr[i] + " ");
                 }
+
                 System.out.println();
 
                 line = br.readLine();
