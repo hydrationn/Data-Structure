@@ -85,6 +85,7 @@ public class SinglyLinkedList {
         next = before;
     }
 
+    // 리스트를 리셋하는 메서드
     static void listReset() {
         if(next == null) {
             return;
