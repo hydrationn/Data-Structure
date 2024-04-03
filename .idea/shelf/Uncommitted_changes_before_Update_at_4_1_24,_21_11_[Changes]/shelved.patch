@@ -1,0 +1,141 @@
+Index: src/lab20240312/Recursion.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package lab20240312;\n\nimport java.io.*;\nimport java.util.Arrays;\nimport java.util.StringTokenizer;\n\npublic class Recursion {\n    public static void main(String[] args) {\n        System.out.print(\"print_pathA(0): \");\n        print_pathA(0);\n\n        System.out.print(\"print_pathB(0): \");\n        print_pathB(0);\n    }\n\n    public static void print_pathA(int start) {\n        try {\n            File file = new File(\"/Users/hydrationn/datastructure01/input.txt\");\n            FileReader fr = new FileReader(file);\n            BufferedReader br = new BufferedReader(fr);\n\n            String line = br.readLine(); // 라인 별로 읽어주고\n\n            StringTokenizer parser = new StringTokenizer(line, \" \"); // 한 라인 안에서 \" \"을 기준으로 읽어준다.\n            int length = parser.countTokens(); // 공백을 기준으로 parser.countTockens으로 배열 길이 정하기\n\n            // 길이 알았으니 배열 세워주고, 채워주기\n            int[] A = new int[length];\n            for(int i = 0; i < length; i++) {\n                A[i] = Integer.parseInt(parser.nextToken());\n            }\n\n            /*\n             * 0에서 시작\n             * 지점 0에서 A[0] = 2 값을 가지므로 2 출력\n             * 지점 2에서 A[2] = 4 값을 가지므로 4 출력\n             * 지점 4에서 A[4] = 3 값을 가지므로 3 출력\n             * 지점 3에서 A[3] = 1 값을 가지므로 1 출력\n             * 지점 1에서 A[1] = 0이므로 마지막 0 출력\n             * 하고 끝\n             * */\n\n            System.out.print(start + \" \");\n\n            int end = A[start];\n\n            if(end == 0) {\n                System.out.println(0 + \" \");\n                return;\n            }\n\n            print_pathA(end);\n\n            br.close();\n        } catch (FileNotFoundException e) {\n            throw new RuntimeException(\"FileNotFoundException\");\n        } catch (IOException e) {\n            throw new RuntimeException(\"IOException\");\n        }\n\n    }\n\n    public static void print_pathB(int start) {\n        try {\n            File file = new File(\"/Users/hydrationn/datastructure01/input.txt\");\n            FileReader fr = new FileReader(file);\n            BufferedReader br = new BufferedReader(fr);\n\n            String line = br.readLine();\n\n            StringTokenizer parser = new StringTokenizer(line, \" \");\n            int length = parser.countTokens();\n\n            String[] B = new String[length];\n            for(int i = 0; i < length; i++) {\n                B[i] = parser.nextToken();\n            }\n\n            /*\n             * 0에서 시작\n             * 0 = B[1]. 즉, 1번째 자리에서 이동하여 왔으므로 1 출력\n             * 1 = B[3]. 즉, 3번째 자리에서 이동하여 왔으므로 3 출력\n             * 3 = B[4]. 즉, 4번째 자리에서 이동하여 왔으므로 4 출력\n             * 4 = B[2]. 즉, 2번째 자리에서 이동하여 왔으므로 2 출력\n             * 2 = B[0]. 즉, 3번째 자리에서 이동하여 왔으므로 0 출력\n             * 하고 끝\n             * */\n\n            br.close();\n\n            System.out.print(start + \" \");\n\n            int startIndex = Arrays.asList(B).indexOf(Integer.toString(start));\n\n            if(startIndex == 0) {\n                System.out.println(0);\n                return;\n            }\n\n            print_pathB(startIndex);\n\n            /*for (int j = 0; j < B.length; j++) {\n                int startIndex = Arrays.asList(B).indexOf(Integer.toString(start));\n                System.out.print(startIndex + \" \");\n                start = startIndex;\n            }*/\n\n        } catch (FileNotFoundException e) {\n            throw new RuntimeException(\"FileNotFoundException\");\n        } catch (IOException e) {\n            throw new RuntimeException(\"IOException\");\n        }\n    }\n}
+===================================================================
+diff --git a/src/lab20240312/Recursion.java b/src/lab20240312/Recursion.java
+--- a/src/lab20240312/Recursion.java	
++++ b/src/lab20240312/Recursion.java	
+@@ -1,66 +1,14 @@
+ package lab20240312;
+ 
+ import java.io.*;
+-import java.util.Arrays;
+ import java.util.StringTokenizer;
+ 
+ public class Recursion {
+     public static void main(String[] args) {
+-        System.out.print("print_pathA(0): ");
+-        print_pathA(0);
+-
+-        System.out.print("print_pathB(0): ");
+-        print_pathB(0);
++        System.out.print(fibonacci(6));
+     }
+ 
+-    public static void print_pathA(int start) {
+-        try {
+-            File file = new File("/Users/hydrationn/datastructure01/input.txt");
+-            FileReader fr = new FileReader(file);
+-            BufferedReader br = new BufferedReader(fr);
+-
+-            String line = br.readLine(); // 라인 별로 읽어주고
+-
+-            StringTokenizer parser = new StringTokenizer(line, " "); // 한 라인 안에서 " "을 기준으로 읽어준다.
+-            int length = parser.countTokens(); // 공백을 기준으로 parser.countTockens으로 배열 길이 정하기
+-
+-            // 길이 알았으니 배열 세워주고, 채워주기
+-            int[] A = new int[length];
+-            for(int i = 0; i < length; i++) {
+-                A[i] = Integer.parseInt(parser.nextToken());
+-            }
+-
+-            /*
+-             * 0에서 시작
+-             * 지점 0에서 A[0] = 2 값을 가지므로 2 출력
+-             * 지점 2에서 A[2] = 4 값을 가지므로 4 출력
+-             * 지점 4에서 A[4] = 3 값을 가지므로 3 출력
+-             * 지점 3에서 A[3] = 1 값을 가지므로 1 출력
+-             * 지점 1에서 A[1] = 0이므로 마지막 0 출력
+-             * 하고 끝
+-             * */
+-
+-            System.out.print(start + " ");
+-
+-            int end = A[start];
+-
+-            if(end == 0) {
+-                System.out.println(0 + " ");
+-                return;
+-            }
+-
+-            print_pathA(end);
+-
+-            br.close();
+-        } catch (FileNotFoundException e) {
+-            throw new RuntimeException("FileNotFoundException");
+-        } catch (IOException e) {
+-            throw new RuntimeException("IOException");
+-        }
+-
+-    }
+-
+-    public static void print_pathB(int start) {
++    private static int fibonacci(int num) {
+         try {
+             File file = new File("/Users/hydrationn/datastructure01/input.txt");
+             FileReader fr = new FileReader(file);
+@@ -68,47 +16,27 @@
+ 
+             String line = br.readLine();
+ 
+-            StringTokenizer parser = new StringTokenizer(line, " ");
+-            int length = parser.countTokens();
+-
+-            String[] B = new String[length];
+-            for(int i = 0; i < length; i++) {
+-                B[i] = parser.nextToken();
+-            }
++            int first = 0;
++            int second = 1;
++
++            while (line != null) {
++                StringTokenizer parser = new StringTokenizer(line, " ");
++                // countTokens() : 꺼내지 않고 남아있는 토큰의 수
++                // hasMoreTokens() : 남아있는 토큰이 있는지 여부
+ 
+-            /*
+-             * 0에서 시작
+-             * 0 = B[1]. 즉, 1번째 자리에서 이동하여 왔으므로 1 출력
+-             * 1 = B[3]. 즉, 3번째 자리에서 이동하여 왔으므로 3 출력
+-             * 3 = B[4]. 즉, 4번째 자리에서 이동하여 왔으므로 4 출력
+-             * 4 = B[2]. 즉, 2번째 자리에서 이동하여 왔으므로 2 출력
+-             * 2 = B[0]. 즉, 3번째 자리에서 이동하여 왔으므로 0 출력
+-             * 하고 끝
+-             * */
++                while (parser.hasMoreElements()) { // String Tokenizer 클래스 객체에서 다음에 읽어들일 token이 있으면 true, 없으면 false를 return
++                    num = Integer.parseInt(parser.nextToken());
+ 
++                    System.out.println(num + " "); // 토큰을 하나씩 꺼내옴
++                }
++                line = br.readLine();
++            }
+             br.close();
+-
+-            System.out.print(start + " ");
+-
+-            int startIndex = Arrays.asList(B).indexOf(Integer.toString(start));
+-
+-            if(startIndex == 0) {
+-                System.out.println(0);
+-                return;
+-            }
+-
+-            print_pathB(startIndex);
+-
+-            /*for (int j = 0; j < B.length; j++) {
+-                int startIndex = Arrays.asList(B).indexOf(Integer.toString(start));
+-                System.out.print(startIndex + " ");
+-                start = startIndex;
+-            }*/
+-
+         } catch (FileNotFoundException e) {
+             throw new RuntimeException("FileNotFoundException");
+         } catch (IOException e) {
+             throw new RuntimeException("IOException");
+         }
++        return num;
+     }
+-}
+\ No newline at end of file
++}

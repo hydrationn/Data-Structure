@@ -1,0 +1,33 @@
+Index: src/lab20240319/Array.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/lab20240319/Array.java b/src/lab20240319/Array.java
+new file mode 100644
+--- /dev/null	
++++ b/src/lab20240319/Array.java	
+@@ -0,0 +1,23 @@
++package lab20240319;
++
++import java.io.*;
++import java.util.StringTokenizer;
++
++public class Array {
++    public static void main(String[] args) {
++        int[] arr = new int[]{1, 2, 3, 4, 5, 6};
++        int k = 7;
++
++        int init = 0;
++        int count = 0;
++
++        for(int i=1; i<arr.length; i++) {
++            init = arr[count];
++
++            if(init + arr[i] == k) {
++                System.out.print(init + " + " + arr[i] + " = " + k);
++            }
++            count++;
++        }
++    }
++}
