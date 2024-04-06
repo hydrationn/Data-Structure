@@ -1,4 +1,4 @@
-package lab20240319;
+package lab.lab20240319;
 
 import java.io.*;
 import java.util.StringTokenizer;

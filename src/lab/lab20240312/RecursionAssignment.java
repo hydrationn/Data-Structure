@@ -1,4 +1,4 @@
-package lab20240312;
+package lab.lab20240312;
 
 import java.io.*;
 import java.util.Arrays;
