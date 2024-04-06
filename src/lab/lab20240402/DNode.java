@@ -1,4 +1,4 @@
-package lab20240402;
+package lab.lab20240402;
 
 public class DNode {
     private Integer data;

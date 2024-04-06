@@ -1,4 +1,4 @@
-package lab20240402;
+package lab.lab20240402;
 
 public class CDList {
     protected DNode head;
