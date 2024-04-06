@@ -1,0 +1,37 @@
+1. 교재의 Doubly linked list를 참고하여 Circular doubly linked list를 구현하시오.
+› 초기화: 더미 노드를 생성하고 head가 더미 노드를 가리키도록 한다.
+› [ 참고 코드– CDList ]
+
+(1) insert(x) 메소드
+: head가 가리키는 더미노드의 다음에 (head의 next가 가리키는 노드로) 삽입한다.
+(2) printall() 메소드
+: head의 next를 따라가며 리스트를 프린트 ( 단, 더미 노드는 출력하지 않음. )
+
+» input.txt의 한 줄씩 읽어 “i” 이후 모든 토큰을 삽입하고 리스트를 프린트한다.
+
+=> input.txt
+i 1 2 3 4 5 6
+i 0
+
+=> 실행 결과
+OUTPUT: 6 5 4 3 2 1
+OUTPUT: 0
+
+
+2. 이전 슬라이드 1.에서 구현한 클래스에서 아래 메소드를 추가하시오.
+ delete() 메소드
+: head가 가리키는 더미 노드의 이전 노드 (previous가 가리키는 노드)를 삭제한다. 단, 리스트가 empty이면 수행하지 않는다.
+
+» input.txt의 한 줄씩 읽어 차례대로 명령에 따라 수행하고 리스트를 프린트한다.
+» 토큰 중 “i”는 “d”를 만날 때까지 모든 토큰을 insert 메소드를 호출하여 삽입
+» 토큰 중 “d”는 delete 메소드를 호출
+
+=> input.txt
+i 1 2 3 4 5 d d
+i 1 2 d d i 3 4
+d d i 1 2 3
+
+=> 실행 결과
+OUTPUT: 6 5 4 3
+OUTPUT: 4 3
+OUTPUT: 3 2 1
