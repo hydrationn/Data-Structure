@@ -64,7 +64,8 @@ public class MainJava {
         } else if (input.equals("(")) {
             return 3; // 스택 밖에서 '(' 가장 높은 우선순위 부여
         }
-        return 0;
+
+        return -1;
     }
 
     static <E> int in_priority(E input) {
@@ -76,10 +77,9 @@ public class MainJava {
             return 1;
         } else if (input.equals("*") || input.equals("/")) {
             return 2;
-        } else if (input.equals("(")) {
-            return 0; // 스택 안에서 '(' 우선순위가 가장 낮음
+        } else {
+            return -1;
         }
-        return 0;
     }
 }
 
