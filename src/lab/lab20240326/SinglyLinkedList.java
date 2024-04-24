@@ -2,6 +2,8 @@ package lab.lab20240326;
 
 public class SinglyLinkedList {
 
+    public static Node head;
+
     static class Node {
         private int data;
         private Node next;
@@ -28,31 +30,23 @@ public class SinglyLinkedList {
         }
     }
 
-    private static Node next;
-
     // 리스트 맨 마지막에 원소를 삽입하는 메소드
-    static void insertLast(int x) {
-        Node newItem = new Node(x, null);
-
-        if (next == null) {
-            next = newItem;
-            return;
+    public static void insertLast(int newItem) {
+        Node newNode = new Node(newItem);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node last = head;
+            while (last.next != null) {
+                last = last.next;
+            }
+            last.next = newNode;
         }
-
-        Node head = next;
-        while (head.next != null){
-            head = head.next;
-        }
-        head.next = newItem;
     }
 
     // 삽입이 끝난 리스트를 출력하는 메소드
-    static void printall() {
-        Node node = next;
-
-        if(next == null) {
-            return;
-        }
+    public static void printall() {
+        Node node = head;
 
         while (node != null) {
             System.out.print(node.data + " ");
@@ -62,28 +56,17 @@ public class SinglyLinkedList {
     }
 
     // 역방향 연결 리스트로 변환하는 메서드
-    static void reverse() {
-        if (next == null) {
-            next = null;
-            return;
+    public static void reverse() {
+        Node previous = null;
+        Node current = head;
+        Node next = null;
+        while (current != null) {
+            next = current.next; // 다음 노드를 임시 저장
+            current.next = previous; // 현재 노드의 다음을 이전 노드로 설정하여 역순 만들기
+            previous = current; // 이전 노드를 현재 노드로 업데이트
+            current = next; // 현재 노드를 다음 노드로 업데이트
         }
-
-        Node before = null;
-        Node head = next;
-
-        while (head != null) {
-            next = head.getNext(); // 다음 노드를 임시 저장
-            head.setNext(before); // 현재 노드의 다음을 이전 노드로 설정하여 역순 만들기
-            before = head; // 이전 노드를 현재 노드로 업데이트
-            head = next; // 현재 노드를 다음 노드로 업데이트
-        }
-
-        next = before; // 머리 노드를 역순 리스트의 새 머리 노드로 설정
-    }
-
-    // 리스트를 리셋하는 메서드
-    static void listReset() {
-        next = null;
+        head = previous; // 헤드를 역순 리스트의 새 헤드로 설정
     }
 }
 

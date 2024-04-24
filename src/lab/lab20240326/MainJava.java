@@ -1,5 +1,7 @@
 package lab.lab20240326;
 
+import practice.List02.Node;
+
 import java.io.*;
 import java.util.StringTokenizer;
 
@@ -13,6 +15,8 @@ public class MainJava {
             String line = br.readLine();
 
             while (line != null) {
+                SinglyLinkedList.head = null;
+
                 StringTokenizer parser = new StringTokenizer(line, " ");
 
                 while (parser.hasMoreElements()) { // StringTokenizer 클래스 객체에서 다음에 읽어들일 token이 있으면 true, 없으면 false를 return
@@ -23,8 +27,6 @@ public class MainJava {
                 SinglyLinkedList.printall();
                 SinglyLinkedList.reverse();
                 SinglyLinkedList.printall();
-
-                SinglyLinkedList.listReset();
 
                 line = br.readLine();
             }
