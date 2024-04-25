@@ -41,7 +41,7 @@ public class ArrayStack<E> {
     // resize(): 배열의 크기를 확대/축소
     public void resize(int newSize) {
         Object[] t = new Object[newSize];
-        System.arraycopy(s, 0, t, 0, s.length);
+//        System.arraycopy(s, 0, t, 0, s.length); // 아래와 같은 의미
         for(int i=0; i<top; i++)
             t[i] = s[i];
         s = (E[]) t;
