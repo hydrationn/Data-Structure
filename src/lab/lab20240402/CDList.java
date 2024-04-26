@@ -13,13 +13,8 @@ public class CDList {
 
     public void insert(int newItem) {
         DNode newNode = new DNode(newItem, head, head.getNext());
-        if (head.getNext() == null) {
-            head.setNext(newNode);
-            head.setPrevious(newNode);
-        } else {
-            head.getNext().setPrevious(newNode);
-            head.setNext(newNode);
-        }
+        head.getNext().setPrevious(newNode);
+        head.setNext(newNode);
         size++;
     }
 

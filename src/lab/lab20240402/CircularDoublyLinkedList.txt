@@ -27,7 +27,7 @@ OUTPUT: 0
 » 토큰 중 “d”는 delete 메소드를 호출
 
 => input.txt
-i 1 2 3 4 5 d d
+i 1 2 3 4 5 6 d d
 i 1 2 d d i 3 4
 d d i 1 2 3
 
@@ -35,3 +35,4 @@ d d i 1 2 3
 OUTPUT: 6 5 4 3
 OUTPUT: 4 3
 OUTPUT: 3 2 1
+
