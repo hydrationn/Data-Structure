@@ -42,6 +42,28 @@ public class ArrayAssignment {
                     }
                 }
 
+                /* 방법 2
+                int left = 0;
+                int right = arr.length - 1;
+
+                while (left < right) {
+                    // 왼쪽에서부터 짝수를 찾을 때까지 이동
+                    while (left < right && arr[left] % 2 == 0) {
+                        left++;
+                    }
+                    // 오른쪽에서부터 홀수를 찾을 때까지 이동
+                    while (left < right && arr[right] % 2 != 0) {
+                        right--;
+                    }
+
+                    // 짝수와 홀수 위치 교환
+                    int temp = arr[left];
+                    arr[left] = arr[right];
+                    arr[right] = temp;
+                    left++;
+                    right--;
+                }*/
+
                 System.out.print("OUTPUT: ");
                 for(int i = 0; i < length; i++) {
                     System.out.print(arr[i] + " ");
