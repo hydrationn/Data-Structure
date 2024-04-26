@@ -23,10 +23,9 @@ public class MainLab {
                 while (!A.isEmpty()) {
                     System.out.print(A.pop());
                 }
+
                 // 공백 문자 출력
-                if (i < arr.length) {
-                    System.out.print(" ");
-                }
+                System.out.print(" ");
             }
         }
     }
