@@ -35,7 +35,6 @@ public class BST<Key extends Comparable<Key>, Value> {
             n.setRight(put(n.getRight(), k, v)); // if (k < 노드 n의 id) 오른쪽 서브트리에 삽입
         else
             n.setValue(v); // 노드 n의 name을 v로 갱신
-
         return n;
     }
 
@@ -59,7 +58,32 @@ public class BST<Key extends Comparable<Key>, Value> {
         if(n.getLeft() == null)
             return n.getRight(); // if (n의 왼쪽 자식==null) n의 오른쪽 자식 반환
         n.setLeft(deleteMin(n.getLeft())); // if (n의 왼쪽 자식!=null) n의 왼쪽 자식으로 순환 호출
+        return n;
+    }
 
+    public void delete(Key k) {
+        root = delete(root, k);
+    }
+    public Node delete(Node n, Key k) {
+        if(n == null)
+            return null;
+
+        int t = n.getKey().compareTo(k);
+        if(t > 0)
+            n.setLeft(delete(n.getLeft(), k)); // if (k < 노드 n의 id) 왼쪽 자식으로 이동
+        else if (t < 0)
+            n.setRight(delete(n.getRight(), k)); // if (k > 노드 n의 id) 오른쪽 자식으로 이동
+        else { // 삭제할 노드 발견
+            if(n.getRight() == null)
+                return n.getLeft(); // case 0, 1
+            if(n.getLeft() == null)
+                return n.getRight(); // case 1
+
+            Node target = n; // case 2 Line82-85
+            n = min(target.getRight()); // 삭제할 노드 자리로 옮겨올 노드 찾아서 n이 가리키게 함
+            n.setRight(deleteMin(target.getRight()));
+            n.setLeft(target.getLeft());
+        }
         return n;
     }
 }
