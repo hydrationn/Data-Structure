@@ -1,16 +1,16 @@
 package lecture.ch05SearchTree;
 
 public class BST<Key extends Comparable<Key>, Value> {
-    public Node root;
-    public Node getRoot() { return root; }
+    public BSTNode root;
+    public BSTNode getRoot() { return root; }
     public BST(Key newId, Value newName) { // BST 생성자
-        root = new Node(newId, newName);
+        root = new BSTNode(newId, newName);
     }
     // get, put, min, deleteMin, delete
     // 메소드들 선언
 
     public Value get(Key k) { return get(root, k); }
-    public Value get(Node n, Key k) {
+    public Value get(BSTNode n, Key k) {
         if(n == null)
             return null; // k를 발견 못함
 
@@ -24,9 +24,9 @@ public class BST<Key extends Comparable<Key>, Value> {
     }
 
     public void put(Key k, Value v) { root = put(root, k, v); }
-    public Node put(Node n, Key k, Value v) {
+    public BSTNode put(BSTNode n, Key k, Value v) {
         if(n == null)
-            return new Node(k, v);
+            return new BSTNode(k, v);
 
         int t = n.getKey().compareTo(k);
         if(t > 0)
@@ -43,7 +43,7 @@ public class BST<Key extends Comparable<Key>, Value> {
             return null;
         return (Key) min(root).getKey();
     }
-    private Node min(Node n) {
+    private BSTNode min(BSTNode n) {
         if(n.getLeft() == null)
             return n;
         return min(n.getLeft());
@@ -54,7 +54,7 @@ public class BST<Key extends Comparable<Key>, Value> {
             System.out.println("empty 트리");
         root = deleteMin(root);
     }
-    public Node deleteMin(Node n) {
+    public BSTNode deleteMin(BSTNode n) {
         if(n.getLeft() == null)
             return n.getRight(); // if (n의 왼쪽 자식==null) n의 오른쪽 자식 반환
         n.setLeft(deleteMin(n.getLeft())); // if (n의 왼쪽 자식!=null) n의 왼쪽 자식으로 순환 호출
@@ -64,7 +64,7 @@ public class BST<Key extends Comparable<Key>, Value> {
     public void delete(Key k) {
         root = delete(root, k);
     }
-    public Node delete(Node n, Key k) {
+    public BSTNode delete(BSTNode n, Key k) {
         if(n == null)
             return null;
 
@@ -79,7 +79,7 @@ public class BST<Key extends Comparable<Key>, Value> {
             if(n.getLeft() == null)
                 return n.getRight(); // case 1
 
-            Node target = n; // case 2 Line82-85
+            BSTNode target = n; // case 2 Line82-85
             n = min(target.getRight()); // 삭제할 노드 자리로 옮겨올 노드 찾아서 n이 가리키게 함
             n.setRight(deleteMin(target.getRight()));
             n.setLeft(target.getLeft());
