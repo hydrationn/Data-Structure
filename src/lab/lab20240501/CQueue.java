@@ -16,10 +16,10 @@ public class CQueue {
             newNode.setNext(newNode);
         }
         else {
-            newNode.setNext(rear.getNext()); // 마지막으로 rear가 newNode를 가리리게
-            rear.setNext(newNode); // 그렇지 않으면 rear의 next를 newNode를 가리키게
+            newNode.setNext(rear.getNext()); // newNode의 다음이 rear의 다음 노드를 가리리게
+            rear.setNext(newNode); // rear의 next를 newNode를 가리키게
         }
-        rear = newNode; // rear가 newNode를 가리키게
+        rear = newNode; // 마지막으로 rear가 newNode를 가리키게
         size++; // 큐 항목 수 1 증가
     }
 
@@ -31,7 +31,7 @@ public class CQueue {
         }
 
         int deleteItem = rear.getNext().getData(); // rear가 가리키는 노드의 다음 항목을 deleteItem에 저장
-        rear.setNext(rear.getNext().getNext());
+        rear.setNext(rear.getNext().getNext()); // rear의 next를 다음다음 노드(즉, deleteItem의 다음 노드)를 가리키게
         size--; // 큐 항목 수 1 감소
 
         if (size == 0) // 큐가 empty이면 rear = null
