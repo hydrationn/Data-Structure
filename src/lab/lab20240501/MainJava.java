@@ -1,7 +1,6 @@
 package lab.lab20240501;
 
 import java.io.*;
-import java.util.StringTokenizer;
 
 public class MainJava {
     public static void main(String[] args) {
