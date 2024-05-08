@@ -1,4 +1,14 @@
-1. 교재의 Doubly linked list를 참고하여 Circular doubly linked list를 구현하시오.
+1. Doubly linked list
+- 모든 노드가 2개의 참조 변수를 가지며, 이전 노드와 다음 노드를 가리키는 연결 리스트
+- 리스트에서 제일 첫번째 노드의 previous와 마지막 노드의 next는 null
+
+2. Circular Doubly linked list
+- Doubly linked list와 달리 양 끝 노드가 서로를 참조하는 방식
+- 정렬된 리스트를 만들자고 할 때, 원형 양방향 순회가 가능하여 탐색이 용이
+
+
+>>>>> 실습
+ 교재의 Doubly linked list를 참고하여 Circular doubly linked list를 구현하시오.
 › 초기화: 더미 노드를 생성하고 head가 더미 노드를 가리키도록 한다.
 › [ 참고 코드– CDList ]
 
@@ -18,7 +28,8 @@ OUTPUT: 6 5 4 3 2 1
 OUTPUT: 0
 
 
-2. 이전 슬라이드 1.에서 구현한 클래스에서 아래 메소드를 추가하시오.
+>>>>> 과제
+ 이전 슬라이드 1.에서 구현한 클래스에서 아래 메소드를 추가하시오.
  delete() 메소드
 : head가 가리키는 더미 노드의 이전 노드 (previous가 가리키는 노드)를 삭제한다. 단, 리스트가 empty이면 수행하지 않는다.
 
