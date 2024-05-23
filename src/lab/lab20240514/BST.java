@@ -3,6 +3,13 @@ package lab.lab20240514;
 public class BST <Key extends Comparable<Key>, Value> {
     private Node root;
     public Node getRoot() { return root; }
+    public BST() {
+        root = null;
+    }
+
+    public BST(Key newId, Value newName) {
+        root = new Node<>(newId, newName);
+    }
 
     public Key max() {
         if(root == null)
@@ -38,10 +45,10 @@ public class BST <Key extends Comparable<Key>, Value> {
     public Node delete_mod(Node n, Key k) {
         if (n == null) return null;
 
-        int cmp = k.compareTo((Key) n.getKey());
-        if (cmp < 0) {
+        int t = k.compareTo((Key) n.getKey());
+        if (t < 0) {
             n.setLeft(delete_mod(n.getLeft(), k));
-        } else if (cmp > 0) {
+        } else if (t > 0) {
             n.setRight(delete_mod(n.getRight(), k));
         } else {
             if (n.getLeft() == null) return n.getRight();
@@ -69,15 +76,15 @@ public class BST <Key extends Comparable<Key>, Value> {
 
         while (true) {
             parent = current; // 현재 노드를 부모 노드로 설정
-            int cmp = current.getKey().compareTo(k);
 
-            if (cmp > 0) { // 현재 노드의 키가 새 키보다 큰 경우
+            int t = current.getKey().compareTo(k);
+            if (t > 0) { // 현재 노드의 키가 새 키보다 큰 경우
                 current = current.getLeft(); // 왼쪽 자식으로 이동
                 if (current == null) { // 왼쪽 자식이 없으면 새 노드를 여기에 삽입
                     parent.setLeft(newNode);
                     return;
                 }
-            } else if (cmp < 0) { // 현재 노드의 키가 새 키보다 작은 경우
+            } else if (t < 0) { // 현재 노드의 키가 새 키보다 작은 경우
                 current = current.getRight(); // 오른쪽 자식으로 이동
                 if (current == null) { // 오른쪽 자식이 없으면 새 노드를 여기에 삽입
                     parent.setRight(newNode);
