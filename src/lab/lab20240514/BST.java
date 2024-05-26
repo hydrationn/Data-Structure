@@ -43,58 +43,60 @@ public class BST <Key extends Comparable<Key>, Value> {
     }
 
     public Node delete_mod(Node n, Key k) {
-        if (n == null) return null;
+        if (n == null)
+            return null;
 
-        int t = k.compareTo((Key) n.getKey());
-        if (t < 0) {
+        int t = n.getKey().compareTo(k);
+
+        if (t > 0) { // if (k < 노드 n의 id) 왼쪽 자식으로 이동
             n.setLeft(delete_mod(n.getLeft(), k));
-        } else if (t > 0) {
+        } else if (t < 0) { // if (k > 노드 n의 id) 오른쪽 자식으로 이동
             n.setRight(delete_mod(n.getRight(), k));
         } else {
-            if (n.getLeft() == null) return n.getRight();
-            if (n.getRight() == null) return n.getLeft();
+            if (n.getLeft() == null) return n.getRight(); // case 0, 1
+            if (n.getRight() == null) return n.getLeft(); // case 1
 
-            Node<Key, Value> maxNode = max(n.getLeft());
-            n.setKey(maxNode.getKey());
-            n.setValue(maxNode.getValue());
-            n.setLeft(deleteMax(n.getLeft()));
+            Node target = n; // case 2
+            n = max(target.getLeft()); // 삭제하 ㄹ노드 자리로 옮겨올 노드를 찾아 n이 가리키게 함
+            n.setLeft(deleteMax(target.getLeft()));
+            n.setRight(target.getRight());
         }
         return n;
     }
 
     // 비재귀적으로 트리에 key를 삽입하는 메소드
     public void put_mod(Key k, Value v) {
-        Node newNode = new Node(k, v); // 새 노드 생성
+        root = put_mod(root, k, v);
+    }
+    public Node put_mod(Node n, Key k, Value v) {
+        if (n == null)
+            return new Node(k, v);
 
-        if (root == null) {
-            root = newNode;
-            return;
-        }
-
-        Node current = root;
-        Node parent;
+        Node node = root; // 갱신시킬 노드 선언
 
         while (true) {
-            parent = current; // 현재 노드를 부모 노드로 설정
+            int t = n.getKey().compareTo(k);
 
-            int t = current.getKey().compareTo(k);
-            if (t > 0) { // 현재 노드의 키가 새 키보다 큰 경우
-                current = current.getLeft(); // 왼쪽 자식으로 이동
-                if (current == null) { // 왼쪽 자식이 없으면 새 노드를 여기에 삽입
-                    parent.setLeft(newNode);
-                    return;
+            if (t > 0) { // if (k < 노드 n의 id) 왼쪽 자식으로 이동
+                if (n.getLeft() == null) {
+                    n.setLeft(new Node<>(k, v));
+                    break;
+                } else {
+                    n = n.getLeft();
                 }
-            } else if (t < 0) { // 현재 노드의 키가 새 키보다 작은 경우
-                current = current.getRight(); // 오른쪽 자식으로 이동
-                if (current == null) { // 오른쪽 자식이 없으면 새 노드를 여기에 삽입
-                    parent.setRight(newNode);
-                    return;
+            } else if (t < 0) { // if (k > 노드 n의 id) 오른쪽 자식으로 이동
+                if (n.getRight() == null) {
+                    n.setRight(new Node<>(k, v));
+                    break;
+                } else {
+                    n = n.getRight();
                 }
-            } else { // 현재 노드의 키가 새 키와 같은 경우
-                current.setValue(v); // 값을 업데이트하고 종료
-                return;
+            } else {  // if (k == 노드 n의 id) node 값 갱신
+                n.setValue(v);
+                break;
             }
         }
+        return node; // 갱신된 트리의 루트 노드 반환
     }
 
     public void inorder(Node n) {
