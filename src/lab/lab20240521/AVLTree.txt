@@ -1,0 +1,108 @@
+1. AVL 트리
+- Adelson - Velsky and Landis
+- 균형(Balanced) 이진 트리: 이진 트리 + 균현 유지 현태의 구조에 접목한 트리
+- 탐색, 삽입, 삭제 연산의 수행 시간 O(log n) 보장(n: 노드의 개수)
+- AVL 트리는 삽입이나 삭제로 인해 균형이 어긋나면 회전 연산을 통해 트리의 균형 유지
+
+> 회전 연산: rotateRight(), rotateLeft()
+
+2. Balance Factor(bf)
+(1) 트리의 균형을 정량적으로 나타낸다.
+(2) 한 노드를 기준으로 왼쪽 서브 트리와 오른쪽 서브 트리의 높이 차로 계산된다.
+ - 트리가 균형 상태인 경우 루트 노드의 bf 값은 -1, 0, 1 중 하나의 값을 가진다.
+ - 그 외, bf 값은 트리가 불균형 상태라는 뜻으로 회전 연산을 수행하여 균형을 유지한다.
+
+public int bf(Node n) { // balance factor
+    return height(n.getLeft()) - height(n.getRight());
+}
+
+3. 회전 기본 연산
+(1) rotateRight 연산
+    Left heavy: Height(left subtree) > Height(right subtree)
+
+public Node rotateRight(Node n) {
+    Node x = n.left;
+    n.left = x.right;
+    x.right = n;
+    n.height = tallerHeight(height(n.left), height(n.right)) + 1; // 높이 갱신
+    x.height = tallerHeight(height(x.left), height(x.right)) + 1; // 높이 갱신
+    return x; // 회전 후 x가 n의 이전 자리로 이동되었으므로
+}
+
+
+(2) rotateLeft 연산
+    Right heavy: Height(left subtree) > Height(right subtree)
+
+private Node rotateLeft(Node n) {
+    Node x = n.right;
+    n.right = x.left;
+    x.left = n;
+    n.height = tallerHeight(height(n.left), height(n.right)) + 1; // 높이 갱신
+    x.height = tallerHeight(height(x.left), height(x.right)) + 1; // 높이 갱신
+    return x; // 회전 후 x가 n의 이전 자리로 이동되었으므로
+}
+
+4. 4가지 균형이 무너진 경우 존재
+(1) LL(Left Left) Tree
+ BF가 ±2 차이 발생햇을 때, 노드를 기준으로 왼쪽, 왼쪽 노드가 존재한다면 LL case
+
+(2) LR(Left Right) case
+ BF가 ±2 차이 발생했을 때, 노드를 기준으로 왼쪽, 오른쪽 노드가 존재한다면 LR case
+
+private Node balance(Node n) { // 노드 n의 왼쪽 서브트리가 높아서 불균형 발생
+    if(bf(n) > 1) {
+        if(bf(n.left) < 0) { // 노드 n의 왼쪽 자식 노드의 오른쪽 서브 트리가 높은 경우
+            n.left = rotateLieft(n.left); --
+        }                                   | // LR-회전
+        n = rotateRight(n); // LL-회전     --
+    }
+    return n;
+}
+
+(3) RR(Right Right) case
+ BF가 ±2 차이 발생했을 때, 노드를 기준으로 오른쪽, 오른쪽 노드가 존재한다면 RR case
+
+(4) RL(Right Left) case
+ BF가 ±2 차이 발생했을 때, 노드를 기준으로 오른쪽, 왼쪽 노드가 존재한다면 RL case
+
+private Node balance(Node n) {
+    else if (bf(n) < -1) { // 노드 n의 오른쪽 서브트리가 높아서 불균형 발생
+        if (bf(n.right) > 0) { // 노드 n의 오른쪽 자식 노드의 왼쪽 서브트리가 높은 경우
+            n.right = rotateRight(n.right); --
+        }                                     | // RL-회전
+        n.rotateLeft(n); // RR-회전          --
+    }
+    return n;
+}
+
+
+>>>>> 과제
+ 교재의 AVL 트리 클래스를 구현하고 다음을 수행하시오.
+» 실행 과정 :
+ › 1. 입력 파일의 첫번째 줄에 있는 key들을 차례대로 AVL 트리에 삽입
+ › 2. inorder_mod를 호출하여 트리에 삽입한 노드들의 key 값과 bf(balance factor) 값들을 출력
+ › 3. 입력 파일의 두 번째 줄에 있는 key들을 차례대로 입력 받아 delete를 이용하여 노드를 삭제
+ › 4. inorder_mod를 호출하여 트리에 있는 노드들의 key와 bf 값들을 출력
+
+» 메소드 추가 :
+ › delete 메소드 : 트리에 삽입된 노드들 중 key k인 노드를 삭제하는 메소드
+ › inorder_mod 메소드 : 트리의 노드들을 중위 순회하면서 노드의 key 값과 bf(balance factor) 값을 출력하는 메소드
+
+» 입력 파일의 첫 번째 줄에 있는 key들을 차례대로 AVL 트리에 삽입
+» inorder_mod를 호출하여 트리에 삽입한 노드들의 key와 bf 값들을 출력
+» 입력 파일의 두 번째 줄에 있는 key들을 차례대로 입력 받아 delete를 이용하여 노드를 삭제
+» inorder_mod를 호출하여 트리에 있는 노드들의 key와 bf 값들을 출력
+» input으로 들어가는 값에는 중복된 값이 존재하지 않는다.
+
+>> input
+30 10 50 6 18 45 58 5 8 15 47 65 7 9
+45 30
+
+>> output deleteMin
+(5, 0) (6, -1) (7, 0) (8, 0) (9, 0) (10, 1) (15, 0) (18, 1) (30, 1) (45, -1) (47, 0) (50, 0) (58, -1) (65, 0)
+(5, 0) (6, -1) (7, 0) (8, 0) (9, 0) (10, 0) (15, 0) (18, 1) (47, 0) (50, 0) (58, 0) (65, 0)
+
+>> output deleteMax
+(5, 0) (6, -1) (7, 0) (8, 0) (9, 0) (10, 1) (15, 0) (18, 1) (30, 1) (45, -1) (47, 0) (50, 0) (58, -1) (65, 0)
+(5, 0) (6, 0) (7, 0) (8, 0) (9, 0) (10, 0) (15, 0) (18, 0) (47, 0) (50, -1) (58, -1) (65, 0)
+
