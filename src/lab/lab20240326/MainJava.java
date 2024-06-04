@@ -1,7 +1,5 @@
 package lab.lab20240326;
 
-import practice.List02.Node;
-
 import java.io.*;
 import java.util.StringTokenizer;
 
